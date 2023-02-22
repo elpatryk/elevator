@@ -1,6 +1,79 @@
 .App {
   text-align: center;
 }
+.elevator-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f1f1f1;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.floor-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.floor-buttons button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.floor-buttons button:disabled {
+  background-color: #ccc;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+  padding-right: 10px;
+}
+
+.direction-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.direction-buttons button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.direction-buttons button:disabled {
+  background-color: #ccc;
+}
+
+.current-floor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.current-floor h3 {
+  margin: 10px;
+  font-size: 20px;
+}
+
+.current-floor h3:first-child {
+  margin-top: 0;
+}
+
+.current-floor h3:last-child {
+  margin-bottom: 0;
+}
 
 .App-logo {
   height: 40vmin;
