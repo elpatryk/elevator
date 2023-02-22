@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 
-type Props = {};
-
-export default function Elevator({}: Props) {
+export default function Elevator() {
   const [currentFloor, setCurrentFloor] = useState(0);
   const [direction, setDirection] = useState("");
   const [requestedFloors, setRequestedFloors] = useState<number[]>([]);
-
   const handleFloorButtonClick = (floor: number) => {
     const newRequestedFloors = [...requestedFloors];
-    const currentFloorIndex = newRequestedFloors.indexOf(currentFloor);
-    if (currentFloorIndex === -1) {
-      newRequestedFloors.push(floor);
-    } else {
-      const nextFloorIndex = currentFloorIndex + (direction === "up" ? 1 : -1);
-      newRequestedFloors.splice(nextFloorIndex, 0, floor);
-    }
+    const index =
+      direction === "up"
+        ? newRequestedFloors.findIndex((f) => f > floor)
+        : newRequestedFloors.findIndex((f) => f < floor);
+
+    newRequestedFloors.splice(
+      index === -1 ? newRequestedFloors.length : index,
+      0,
+      floor
+    );
     setRequestedFloors(newRequestedFloors);
   };
 
@@ -76,59 +76,79 @@ export default function Elevator({}: Props) {
       // remove the current floor from requested floors
       setRequestedFloors((prev) => prev.slice(1));
     }
-  }, [currentFloor, direction, requestedFloors]);
+  }, [currentFloor, requestedFloors]);
 
   return (
     <div className="elevator-container">
       Elevator
       <div className="floor-buttons">
         <div className="column">
-          <button
-            onClick={() => handleFloorButtonClick(0)}
-            disabled={!direction}
-          >
-            Ground Floor
-          </button>
-          <button
-            onClick={() => handleFloorButtonClick(1)}
-            disabled={!direction}
-          >
-            Floor 1
-          </button>
-        </div>
-        <div className="column">
-          <button
-            disabled={!direction}
-            onClick={() => handleFloorButtonClick(2)}
-          >
-            Floor 2
-          </button>
-          <button
-            disabled={!direction}
-            onClick={() => handleFloorButtonClick(3)}
-          >
-            Floor 3
-          </button>
-          <button
-            disabled={!direction}
-            onClick={() => handleFloorButtonClick(4)}
-          >
-            Floor 4
-          </button>
-          <button
-            disabled={!direction}
-            onClick={() => handleFloorButtonClick(5)}
-          >
-            Floor 5
-          </button>
-        </div>
-        <div className="direction-buttons">
-          <button onClick={handleUpButtonClick} disabled={currentFloor === 5}>
-            Up
-          </button>
-          <button onClick={handleDownButtonClick} disabled={currentFloor === 0}>
-            Down
-          </button>
+          <div>
+            <button
+              onClick={() => handleFloorButtonClick(0)}
+              disabled={!direction}
+              className={currentFloor === 0 ? "active" : ""}
+            >
+              Ground Floor
+            </button>
+            <button onClick={handleUpButtonClick}>↑</button>
+          </div>
+          <div>
+            <button
+              onClick={() => handleFloorButtonClick(1)}
+              disabled={!direction}
+              className={currentFloor === 1 ? "active" : ""}
+            >
+              Floor 1
+            </button>
+            <button onClick={handleUpButtonClick}>↑</button>
+            <button onClick={handleDownButtonClick}>↓</button>
+          </div>
+
+          <div>
+            <button
+              disabled={!direction}
+              className={currentFloor === 2 ? "active" : ""}
+              onClick={() => handleFloorButtonClick(2)}
+            >
+              Floor 2
+            </button>
+            <button onClick={handleUpButtonClick}>↑</button>
+            <button onClick={handleDownButtonClick}>↓</button>
+          </div>
+          <div>
+            <button
+              disabled={!direction}
+              className={currentFloor === 3 ? "active" : ""}
+              onClick={() => handleFloorButtonClick(3)}
+            >
+              Floor 3
+            </button>
+            <button onClick={handleUpButtonClick}>↑</button>
+            <button onClick={handleDownButtonClick}>↓</button>
+          </div>
+          <div>
+            <button
+              disabled={!direction}
+              className={currentFloor === 4 ? "active" : ""}
+              onClick={() => handleFloorButtonClick(4)}
+            >
+              Floor 4
+            </button>
+            <button onClick={handleUpButtonClick}>↑</button>
+            <button onClick={handleDownButtonClick}>↓</button>
+          </div>
+          <div>
+            <button
+              disabled={!direction}
+              className={currentFloor === 5 ? "active" : ""}
+              onClick={() => handleFloorButtonClick(5)}
+            >
+              Floor 5
+            </button>
+
+            <button onClick={handleDownButtonClick}>↓</button>
+          </div>
         </div>
       </div>
       <div className="current-floor">
